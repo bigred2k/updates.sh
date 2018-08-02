@@ -1,5 +1,6 @@
 #!/bin/bash
 
+start_time="$(date +%s)"
 uptime="$(uptime)"
 freemem="$(free -m)"
 freedisk="$(df -h | grep '/'|sort -nr -k5)"
@@ -22,3 +23,6 @@ echo
 echo
 for docroot in $docroots; do echo; cd $docroot ; echo $(pwd) ;wp core version  --allow-root 2>/dev/null; wp plugin list --allow-root 2>/dev/null | grep -i 'available' ; wp theme list --allow-root 2>/dev/null | grep -i 'available' ; drush status | grep -i 'Drupal version';drush up --security-only -n | grep -i 'secur'; done
 
+finish_time="$(date +%s)"
+
+echo "Time duration: $((finish_time - start_time)) secs."
